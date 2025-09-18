@@ -1,0 +1,11 @@
+EX3:
+3.1:https://www.tinkercad.com/things/gDIobibNTfF/editel
+3.2: https://www.tinkercad.com/things/az52F2DLWSU/editel
+3.3:https://www.tinkercad.com/things/5qxw5z8JZ30/editel
+What does happen if the number 300 is used in analogWrite function? Briefly provide
+your answer in the report.
+-Khi analogWrite nhận giá trị của hàm là 300 . thì mặc dịnh giá trị sẽ được nhận cho lệnh này sẽ là 300-255=45 , đây là giá trị mà hàm analogWrite sẽ biểu thị cho tốc quay 
+của robot hiện tại.
+3.4: Hoàn thành function 4 hàm movement cho 2 motor .
+3.5 : Test activity of functions all:
+https://www.tinkercad.com/things/6xK0cEzq65z/editel
