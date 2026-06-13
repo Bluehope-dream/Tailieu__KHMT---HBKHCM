@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Báo Cáo Bài Tập Lớn OS – CO2018</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap');
+
+  :root {
+    --bg: #0d1117;
+    --bg2: #161b22;
+    --bg3: #1f2937;
+    --border: #30363d;
+    --border2: #3d4450;
+    --text: #e6edf3;
+    --text2: #8b949e;
+    --text3: #6e7681;
+    --accent-blue: #58a6ff;
+    --accent-green: #3fb950;
+    --accent-amber: #d29922;
+    --accent-red: #f85149;
+    --accent-purple: #bc8cff;
+    --accent-teal: #39d0b0;
+    --tag-bg: #1c2f4a;
+    --tag-text: #58a6ff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .page-header {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 2.5rem 3rem 2rem;
+  }
+
+  .page-header .badge {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: var(--tag-bg);
+    color: var(--accent-teal);
+    border: 1px solid rgba(57,208,176,0.3);
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+  }
+
+  .page-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .page-header .subtitle {
+    margin-top: 0.5rem;
+    color: var(--text2);
+    font-size: 14px;
+  }
+
+  .meta-row {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--text2);
+  }
+
+  .meta-item .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent-green);
+    flex-shrink: 0;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem;
+  }
+
+  /* NAV */
+  .nav-pills {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .nav-pills a {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    text-decoration: none;
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border2);
+    color: var(--text2);
+    transition: all .15s;
+  }
+
+  .nav-pills a:hover {
+    border-color: var(--accent-blue);
+    color: var(--accent-blue);
+    background: rgba(88,166,255,0.08);
+  }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 3.5rem;
+  }
+
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent-teal);
+    margin-bottom: 0.6rem;
+  }
+
+  .section h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    margin-bottom: 0.25rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.6rem;
+  }
+
+  .section h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent-blue);
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  .section p {
+    color: var(--text2);
+    margin-bottom: 0.75rem;
+  }
+
+  .section strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  /* CARD */
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .card-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+
+  .card p {
+    font-size: 13px;
+    margin-bottom: 0;
+  }
+
+  /* CODE BLOCK */
+  .code-block {
+    background: #0d1117;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent-teal);
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: #c9d1d9;
+    margin: 1rem 0;
+    overflow-x: auto;
+    white-space: pre;
+  }
+
+  .code-block .kw { color: #ff7b72; }
+  .code-block .fn { color: #d2a8ff; }
+  .code-block .str { color: #a5d6ff; }
+  .code-block .cm { color: var(--text3); font-style: italic; }
+  .code-block .num { color: #f8c555; }
+  .code-block .typ { color: #79c0ff; }
+
+  /* TABLE */
+  .tbl {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 1rem 0;
+  }
+
+  .tbl th {
+    background: var(--bg3);
+    color: var(--text);
+    font-weight: 600;
+    text-align: left;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+  }
+
+  .tbl td {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    color: var(--text2);
+    vertical-align: top;
+  }
+
+  .tbl tr:nth-child(even) td {
+    background: rgba(255,255,255,0.02);
+  }
+
+  /* STEP */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .step {
+    position: relative;
+    padding-bottom: 1.5rem;
+  }
+
+  .step::before {
+    content: '';
+    position: absolute;
+    left: -1.5rem;
+    top: 20px;
+    bottom: 0;
+    width: 1px;
+    background: var(--border2);
+  }
+
+  .step:last-child::before { display: none; }
+
+  .step-num {
+    position: absolute;
+    left: -2.1rem;
+    top: 2px;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--accent-teal);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #0d1117;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  .step-title {
+    font-weight: 600;
+    color: var(--text);
+    font-size: 14px;
+    margin-bottom: 3px;
+  }
+
+  .step-desc {
+    font-size: 13px;
+    color: var(--text2);
+  }
+
+  /* TIMELINE */
+  .timeline {
+    margin: 1rem 0;
+  }
+
+  .tl-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+
+  .tl-row:last-child { border-bottom: none; }
+
+  .tl-slot {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--accent-amber);
+    min-width: 72px;
+    padding-top: 2px;
+  }
+
+  .tl-pid {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    margin-right: 4px;
+    white-space: nowrap;
+  }
+
+  .pid1 { background: rgba(88,166,255,0.15); color: var(--accent-blue); }
+  .pid2 { background: rgba(188,140,255,0.15); color: var(--accent-purple); }
+  .pid3 { background: rgba(57,208,176,0.15); color: var(--accent-teal); }
+  .pid4 { background: rgba(63,185,80,0.15); color: var(--accent-green); }
+
+  .tl-events { color: var(--text2); }
+
+  /* HIGHLIGHT BOX */
+  .hbox {
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    margin: 1rem 0;
+    font-size: 13px;
+  }
+
+  .hbox.blue {
+    background: rgba(88,166,255,0.07);
+    border: 1px solid rgba(88,166,255,0.25);
+    color: var(--text2);
+  }
+
+  .hbox.green {
+    background: rgba(63,185,80,0.07);
+    border: 1px solid rgba(63,185,80,0.25);
+    color: var(--text2);
+  }
+
+  .hbox.amber {
+    background: rgba(210,153,34,0.07);
+    border: 1px solid rgba(210,153,34,0.25);
+    color: var(--text2);
+  }
+
+  .hbox .hbox-title {
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+    font-size: 13px;
+  }
+
+  /* ADDR DIAGRAM */
+  .addr-diagram {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 1.25rem 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    flex-wrap: wrap;
+    gap: 2px;
+  }
+
+  .addr-field {
+    padding: 10px 8px;
+    text-align: center;
+    border: 1px solid var(--border2);
+    border-radius: 4px;
+  }
+
+  .addr-field .bits {
+    font-size: 10px;
+    color: var(--text3);
+    margin-bottom: 2px;
+  }
+
+  .addr-field .name {
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .af-pgd { background: rgba(88,166,255,0.12); color: var(--accent-blue); border-color: rgba(88,166,255,0.3); }
+  .af-p4d { background: rgba(188,140,255,0.12); color: var(--accent-purple); border-color: rgba(188,140,255,0.3); }
+  .af-pud { background: rgba(57,208,176,0.12); color: var(--accent-teal); border-color: rgba(57,208,176,0.3); }
+  .af-pmd { background: rgba(63,185,80,0.12); color: var(--accent-green); border-color: rgba(63,185,80,0.3); }
+  .af-pt  { background: rgba(210,153,34,0.12); color: var(--accent-amber); border-color: rgba(210,153,34,0.3); }
+  .af-off { background: rgba(248,81,73,0.12); color: var(--accent-red); border-color: rgba(248,81,73,0.3); }
+
+  .addr-arrow {
+    color: var(--text3);
+    font-size: 14px;
+    padding: 0 2px;
+  }
+
+  /* OUTPUT block */
+  .output-block {
+    background: #010409;
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent-amber);
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    line-height: 1.7;
+    color: #c9d1d9;
+    margin: 1rem 0;
+    white-space: pre-wrap;
+    overflow-x: auto;
+  }
+
+  .out-slot { color: var(--accent-amber); font-weight: 600; }
+  .out-pid1 { color: var(--accent-blue); }
+  .out-pid2 { color: var(--accent-purple); }
+  .out-pid3 { color: var(--accent-teal); }
+  .out-pid4 { color: var(--accent-green); }
+  .out-mem  { color: #f2a65a; }
+  .out-done { color: var(--accent-green); }
+  .out-ld   { color: var(--text3); }
+
+  /* SPEAK NOTE */
+  .speak-note {
+    background: var(--bg3);
+    border: 1px dashed var(--border2);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+    font-size: 12.5px;
+    color: var(--text3);
+  }
+
+  .speak-note::before {
+    content: '🎙 ';
+  }
+
+  ul.bullet {
+    padding-left: 1.25rem;
+    margin: 0.5rem 0;
+  }
+
+  ul.bullet li {
+    font-size: 13px;
+    color: var(--text2);
+    margin-bottom: 4px;
+  }
+
+  ul.bullet li strong {
+    color: var(--text);
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2.5rem 0;
+  }
+
+  .footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 3rem;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text3);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* PTE layout */
+  .pte-diagram {
+    display: flex;
+    margin: 1rem 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    overflow-x: auto;
+  }
+
+  .pte-bit {
+    flex: 1;
+    min-width: 28px;
+    border: 1px solid var(--border2);
+    padding: 4px 2px;
+    text-align: center;
+  }
+
+  .pte-bit .bit-num { color: var(--text3); font-size: 9px; }
+  .pte-bit .bit-name { font-weight: 600; }
+
+  .pte-fpn { background: rgba(88,166,255,0.1); color: var(--accent-blue); border-color: rgba(88,166,255,0.3); }
+  .pte-swpoff { background: rgba(188,140,255,0.1); color: var(--accent-purple); border-color: rgba(188,140,255,0.3); }
+  .pte-swptyp { background: rgba(210,153,34,0.1); color: var(--accent-amber); border-color: rgba(210,153,34,0.3); }
+  .pte-dirty { background: rgba(248,81,73,0.1); color: var(--accent-red); border-color: rgba(248,81,73,0.3); }
+  .pte-swp { background: rgba(57,208,176,0.1); color: var(--accent-teal); border-color: rgba(57,208,176,0.3); }
+  .pte-pre { background: rgba(63,185,80,0.1); color: var(--accent-green); border-color: rgba(63,185,80,0.3); }
+
+  @media print {
+    body { background: white; color: #111; }
+    .page-header, .card, .hbox { background: #f9f9f9; border-color: #ddd; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="badge">CO2018 – Operating Systems Assignment</div>
+  <h1>Bài Tập Lớn: Bộ Lập Lịch, Quản Lý Bộ Nhớ &amp; Phân Trang</h1>
+  <p class="subtitle">Bản nội dung báo cáo – 15 phút – 1 người trình bày</p>
+  <div class="meta-row">
+    <span class="meta-item"><span class="dot"></span>Testcase: os_0_mlq_paging</span>
+    <span class="meta-item"><span class="dot" style="background:var(--accent-blue)"></span>2 CPU · 6 processes · MLQ scheduler</span>
+    <span class="meta-item"><span class="dot" style="background:var(--accent-amber)"></span>MM64 5-level paging</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <nav class="nav-pills">
+    <a href="#intro">Tổng quan</a>
+    <a href="#scheduler">Scheduler</a>
+    <a href="#memory">Memory</a>
+    <a href="#paging">Paging</a>
+    <a href="#testcase">Testcase I/O</a>
+    <a href="#va2pa">VA → PA Translation</a>
+  </nav>
+
+  <!-- ============================================================ -->
+  <!-- INTRO -->
+  <!-- ============================================================ -->
+  <section class="section" id="intro">
+    <div class="section-label">Mở đầu · ~1 phút</div>
+    <h2>Tổng Quan Đề Tài</h2>
+
+    <div class="speak-note">Chào thầy/cô, em xin phép bắt đầu. Bài tập lớn của nhóm em triển khai mô phỏng một hệ điều hành mini gồm 3 thành phần chính: bộ lập lịch đa cấp MLQ, hệ thống quản lý bộ nhớ ảo, và cơ chế phân trang 5 cấp kiểu x86-64. Nhóm em sẽ lần lượt trình bày từng phần và sau đó demo trực tiếp với testcase os_0_mlq_paging.</div>
+
+    <table class="tbl">
+      <tr>
+        <th>Thành phần</th>
+        <th>File liên quan</th>
+        <th>Chức năng chính</th>
+      </tr>
+      <tr>
+        <td><strong>Scheduler (MLQ)</strong></td>
+        <td>sched.c, queue.c</td>
+        <td>Lập lịch đa cấp ưu tiên, quản lý ready/run queue</td>
+      </tr>
+      <tr>
+        <td><strong>Memory Management</strong></td>
+        <td>libmem.c, mm-vm.c, mm-memphy.c</td>
+        <td>Quản lý vùng nhớ ảo, alloc/free, swap</td>
+      </tr>
+      <tr>
+        <td><strong>Paging (MM64)</strong></td>
+        <td>mm64.c, mm.c</td>
+        <td>5-level page table, dịch địa chỉ ảo → vật lý</td>
+      </tr>
+    </table>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ============================================================ -->
+  <!-- SCHEDULER -->
+  <!-- ============================================================ -->
+  <section class="section" id="scheduler">
+    <div class="section-label">Phần 1 · ~4 phút</div>
+    <h2>Bộ Lập Lịch – Multi-Level Queue (MLQ)</h2>
+
+    <div class="speak-note">Phần đầu tiên là bộ lập lịch. Nhóm em cài đặt thuật toán MLQ – Multi-Level Queue với MAX_PRIO mức độ ưu tiên. Mỗi mức có một hàng đợi riêng và được cấp một số lượng time slot tương ứng với ưu tiên của nó.</div>
+
+    <h3>1.1 Cấu trúc dữ liệu</h3>
+
+    <div class="code-block"><span class="cm">// sched.c – Mảng hàng đợi theo mức ưu tiên</span>
+<span class="kw">static</span> <span class="typ">struct</span> queue_t mlq_ready_queue[MAX_PRIO]; <span class="cm">// Hàng đợi sẵn sàng (0 = cao nhất)</span>
+<span class="kw">static</span> <span class="typ">int</span>    slot[MAX_PRIO];               <span class="cm">// Số slot còn lại cho mỗi mức</span>
+<span class="kw">static</span> <span class="typ">struct</span> queue_t running_list;         <span class="cm">// Danh sách tiến trình đang chạy</span></div>
+
+    <h3>1.2 Cơ chế enqueue / dequeue (queue.c)</h3>
+    <p>Hàng đợi hoạt động như một <strong>FIFO với độ ưu tiên theo level</strong>:</p>
+    <ul class="bullet">
+      <li><strong>enqueue()</strong>: thêm tiến trình vào đầu mảng, đẩy các tiến trình cũ xuống cuối.</li>
+      <li><strong>dequeue()</strong>: lấy tiến trình ở <em>cuối</em> mảng – tức tiến trình được đưa vào sớm nhất (FIFO).</li>
+      <li><strong>purgequeue()</strong>: xóa một tiến trình cụ thể khỏi hàng đợi (dùng khi process bị chuyển trạng thái).</li>
+    </ul>
+
+    <h3>1.3 Thuật toán get_mlq_proc()</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-title">Quét từ priority 0 → MAX_PRIO-1</div>
+        <div class="step-desc">Tìm hàng đợi đầu tiên không rỗng <em>và</em> còn slot (slot[i] > 0). Lấy process ra, giảm slot[i].</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-title">Nếu tất cả slot đã cạn</div>
+        <div class="step-desc">Reset toàn bộ: slot[i] = MAX_PRIO − i (priority cao → nhiều slot hơn). Sau đó quét lại lần 2.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-title">Cập nhật running_list</div>
+        <div class="step-desc">Process lấy ra được enlist vào running_list; cập nhật con trỏ krnl→running_list và krnl→mlq_ready_queue.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-title">put_mlq_proc() – trả process về</div>
+        <div class="step-desc">purge khỏi running_list, enqueue lại vào mlq_ready_queue[proc→prio]. Toàn bộ được bảo vệ bởi pthread_mutex.</div>
+      </div>
+    </div>
+
+    <h3>1.4 Công thức cấp phát slot</h3>
+    <div class="hbox blue">
+      <div class="hbox-title">slot[i] = MAX_PRIO − i</div>
+      Priority 0 (cao nhất) nhận MAX_PRIO slots; priority MAX_PRIO-1 (thấp nhất) nhận 1 slot. Điều này đảm bảo tiến trình ưu tiên cao được CPU nhiều hơn đáng kể.
+    </div>
+
+    <h3>1.5 An toàn đồng thời</h3>
+    <p>Mọi thao tác vào queue đều được bao bởi <code>pthread_mutex_lock(&queue_lock)</code> và <code>pthread_mutex_unlock()</code> để tránh race condition khi 2 CPU truy cập đồng thời.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ============================================================ -->
+  <!-- MEMORY -->
+  <!-- ============================================================ -->
+  <section class="section" id="memory">
+    <div class="section-label">Phần 2 · ~4 phút</div>
+    <h2>Quản Lý Bộ Nhớ Ảo</h2>
+
+    <div class="speak-note">Phần hai là quản lý bộ nhớ. Hệ thống dùng mô hình bộ nhớ ảo với VMA (Virtual Memory Area), symbol table để track vùng nhớ đã cấp, và FIFO-based page replacement khi RAM đầy.</div>
+
+    <h3>2.1 Cấu trúc mm_struct và vm_area_struct</h3>
+    <table class="tbl">
+      <tr><th>Trường</th><th>Kiểu</th><th>Ý nghĩa</th></tr>
+      <tr><td>mm→mmap</td><td>vm_area_struct*</td><td>Linked list các vùng nhớ ảo của process</td></tr>
+      <tr><td>mm→symrgtbl[]</td><td>vm_rg_struct[]</td><td>Bảng symbol: ánh xạ reg_index → vùng nhớ (rg_start, rg_end)</td></tr>
+      <tr><td>mm→fifo_pgn</td><td>pgn_t*</td><td>Danh sách page theo thứ tự nạp vào RAM (dùng cho FIFO eviction)</td></tr>
+      <tr><td>vma→vm_freerg_list</td><td>vm_rg_struct*</td><td>Danh sách vùng trống trong VMA (free list)</td></tr>
+      <tr><td>vma→sbrk</td><td>addr_t</td><td>Con trỏ "break" – đánh dấu đỉnh vùng nhớ đã cấp phát</td></tr>
+    </table>
+
+    <h3>2.2 Luồng liballoc() – cấp phát bộ nhớ</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-title">get_free_vmrg_area()</div>
+        <div class="step-desc">Duyệt vm_freerg_list của VMA, tìm vùng trống đủ lớn (first-fit). Nếu tìm được → ghi vào symrgtbl[reg_index] và trả về.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-title">SYSCALL 17 – sys_memmap (SYSMEM_INC_OP)</div>
+        <div class="step-desc">Nếu không có vùng trống: gọi syscall để tăng giới hạn VMA thêm một khoảng (inc_vma_limit). Syscall gọi alloc_pages_range() lấy frame vật lý, rồi vmap_page_range() ánh xạ vào page table.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-title">Ghi symrgtbl và trả địa chỉ</div>
+        <div class="step-desc">proc→regs[reg_index] = địa chỉ ảo đầu vùng được cấp. Địa chỉ này sau đó được dùng trong các lệnh read/write.</div>
+      </div>
+    </div>
+
+    <h3>2.3 libfree() – giải phóng bộ nhớ</h3>
+    <p>Lấy vùng nhớ từ symrgtbl[reg_index], tạo node mới và đẩy vào đầu vm_freerg_list. Vùng nhớ này có thể được tái sử dụng trong các lần alloc tiếp theo.</p>
+
+    <h3>2.4 Cơ chế Swap (khi RAM đầy)</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-title">MEMPHY_get_freefp(mram) thất bại</div>
+        <div class="step-desc">Không còn frame trống trong RAM vật lý.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-title">find_victim_page() – FIFO</div>
+        <div class="step-desc">Lấy page cuối cùng trong fifo_pgn list (page được nạp vào lâu nhất = FIFO eviction).</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-title">__swap_cp_page() – đẩy ra swap</div>
+        <div class="step-desc">Copy toàn bộ nội dung của victim frame ra swap device; cập nhật PTE của victim page thành SWAPPED.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-title">Nạp page cần thiết vào frame vừa giải phóng</div>
+        <div class="step-desc">Copy từ swap vào RAM; cập nhật PTE của page mới với FPN thực; enlist vào fifo_pgn.</div>
+      </div>
+    </div>
+
+    <h3>2.5 Physical Memory (mm-memphy.c)</h3>
+    <ul class="bullet">
+      <li><strong>MEMPHY_format()</strong>: chia RAM thành các frame bằng nhau, tạo linked list free_fp_list.</li>
+      <li><strong>MEMPHY_get_freefp()</strong>: lấy frame đầu danh sách trống, chuyển sang used_fp_list.</li>
+      <li><strong>MEMPHY_put_freefp()</strong>: trả frame về free_fp_list (tìm trong used hoặc tạo node mới).</li>
+    </ul>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ============================================================ -->
+  <!-- PAGING -->
+  <!-- ============================================================ -->
+  <section class="section" id="paging">
+    <div class="section-label">Phần 3 · ~4 phút</div>
+    <h2>Phân Trang 5 Cấp – MM64</h2>
+
+    <div class="speak-note">Phần thứ ba và cũng là phần quan trọng nhất: cơ chế phân trang 5 cấp theo kiến trúc x86-64. Đây là điểm nổi bật của bài tập khi nhóm em triển khai đầy đủ cây page table 5 tầng thay vì chỉ dùng flat array đơn giản.</div>
+
+    <h3>3.1 Cấu trúc địa chỉ ảo 64-bit</h3>
+    <p>Mỗi địa chỉ ảo 64-bit được chia thành 6 trường:</p>
+
+    <div class="addr-diagram">
+      <div class="addr-field af-pgd">
+        <div class="bits">bit 48-44</div>
+        <div class="name">PGD</div>
+        <div class="bits">9 bit</div>
+      </div>
+      <div class="addr-arrow">›</div>
+      <div class="addr-field af-p4d">
+        <div class="bits">bit 43-39</div>
+        <div class="name">P4D</div>
+        <div class="bits">9 bit</div>
+      </div>
+      <div class="addr-arrow">›</div>
+      <div class="addr-field af-pud">
+        <div class="bits">bit 38-30</div>
+        <div class="name">PUD</div>
+        <div class="bits">9 bit</div>
+      </div>
+      <div class="addr-arrow">›</div>
+      <div class="addr-field af-pmd">
+        <div class="bits">bit 29-21</div>
+        <div class="name">PMD</div>
+        <div class="bits">9 bit</div>
+      </div>
+      <div class="addr-arrow">›</div>
+      <div class="addr-field af-pt">
+        <div class="bits">bit 20-12</div>
+        <div class="name">PT</div>
+        <div class="bits">9 bit</div>
+      </div>
+      <div class="addr-arrow">›</div>
+      <div class="addr-field af-off">
+        <div class="bits">bit 11-0</div>
+        <div class="name">OFFSET</div>
+        <div class="bits">12 bit</div>
+      </div>
+    </div>
+
+    <p>Mỗi tầng có 512 entry (2⁹), page size = 4096 bytes (2¹²). Hàm <strong>get_pd_from_address()</strong> tách địa chỉ ra 5 chỉ số này.</p>
+
+    <h3>3.2 Cấu trúc Page Table Entry (PTE)</h3>
+    <div class="pte-diagram">
+      <div class="pte-bit pte-fpn" style="flex:12">
+        <div class="bit-num">31–12</div>
+        <div class="bit-name">FPN (20 bit)</div>
+      </div>
+      <div class="pte-bit pte-swpoff" style="flex:8">
+        <div class="bit-num">11–4</div>
+        <div class="bit-name">SWPOFF</div>
+      </div>
+      <div class="pte-bit pte-swptyp" style="flex:3">
+        <div class="bit-num">3–2</div>
+        <div class="bit-name">SWPTYP</div>
+      </div>
+      <div class="pte-bit pte-dirty" style="flex:1">
+        <div class="bit-num">2</div>
+        <div class="bit-name">DIRTY</div>
+      </div>
+      <div class="pte-bit pte-swp" style="flex:1">
+        <div class="bit-num">1</div>
+        <div class="bit-name">SWP</div>
+      </div>
+      <div class="pte-bit pte-pre" style="flex:1">
+        <div class="bit-num">0</div>
+        <div class="bit-name">PRESENT</div>
+      </div>
+    </div>
+
+    <ul class="bullet">
+      <li><strong>PRESENT=1, SWP=0</strong>: page đang ở RAM → FPN chứa frame number vật lý.</li>
+      <li><strong>PRESENT=1, SWP=1</strong>: page đã bị swap ra → SWPTYP + SWPOFF chỉ vị trí trên swap device.</li>
+    </ul>
+
+    <h3>3.3 Lazy allocation – cây page table được tạo khi cần</h3>
+    <div class="code-block"><span class="cm">// vmap_page_range() trong mm64.c – tạo node khi NULL</span>
+<span class="typ">addr_t</span> *p4d = (<span class="typ">addr_t</span> *)caller->mm->pgd[pgd_idx];
+<span class="kw">if</span> (p4d == NULL) {
+    p4d = calloc(512, <span class="kw">sizeof</span>(<span class="typ">addr_t</span>));   <span class="cm">// Cấp phát tầng P4D</span>
+    caller->mm->pgd[pgd_idx] = (<span class="typ">addr_t</span>)p4d;
+}
+<span class="cm">// Tương tự cho PUD, PMD, PT...</span></div>
+
+    <p>Cây page table chỉ được cấp phát khi có page thực sự được map. Điều này tiết kiệm bộ nhớ đáng kể so với cấp phát toàn bộ cây ngay từ đầu.</p>
+
+    <h3>3.4 Hàm vmap_page_range() – ánh xạ pages vào cây</h3>
+    <p>Với mỗi page trong danh sách frame cần map: tính pgn từ địa chỉ, gọi get_pd_from_pagenum(), duyệt 5 tầng (tạo nếu NULL), ghi PTE vào lá. Sau đó enlist_pgn_node() để track trong FIFO list.</p>
+
+    <h3>3.5 Hàm pte_get_entry() và pte_set_entry()</h3>
+    <div class="card">
+      <div class="card-title">pte_get_entry(caller, pgn)</div>
+      <p>Tính địa chỉ từ pgn (pgn &lt;&lt; PT_SHIFT), gọi get_pd_from_address(), duyệt cây 5 tầng, trả về giá trị PTE tại lá. Trả về 0 nếu bất kỳ tầng nào là NULL (page chưa map).</p>
+    </div>
+    <div class="card">
+      <div class="card-title">pte_set_entry(caller, pgn, pte_val)</div>
+      <p>Tương tự nhưng ghi giá trị vào lá. Trả về -1 nếu có tầng NULL (lỗi). Được gọi bởi pte_set_fpn() và pte_set_swap().</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ============================================================ -->
+  <!-- TESTCASE -->
+  <!-- ============================================================ -->
+  <section class="section" id="testcase">
+    <div class="section-label">Demo · ~4 phút</div>
+    <h2>Chạy Testcase os_0_mlq_paging</h2>
+
+    <div class="speak-note">Bây giờ em xin trình bày testcase cụ thể. File cấu hình os_0_mlq_paging mô tả một hệ thống với 2 CPU, 6 time slot mỗi tiến trình, và 5 tiến trình được nạp vào ở các thời điểm khác nhau.</div>
+
+    <h3>4.1 Phân tích input</h3>
+
+    <div class="card">
+      <div class="card-title">os_0_mlq_paging (file cấu hình)</div>
+      <div class="code-block" style="margin-top:0.5rem">6 2 4           <span class="cm"># time_slot=6, num_cpus=2, num_processes=4</span>
+268435456 16777216 0 0 0   <span class="cm"># memramsz=256MB, memswpsz[0]=16MB</span>
+0  p0s  0     <span class="cm"># t=0:  PID1 nạp p0s, priority=0</span>
+1  p1s  15    <span class="cm"># t=1:  PID2 nạp p1s, priority=15 (thấp)</span>
+3  p1s  0     <span class="cm"># t=3:  PID3 nạp p1s, priority=0</span>
+6  p0s  0     <span class="cm"># t=6:  PID4 nạp p0s, priority=0</span>
+5  p1s  0     <span class="cm"># t=5:  PID5 nạp p1s, priority=0 (thực ra là dòng thứ 5)</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">p0s – Process 0 script (14 lệnh)</div>
+      <div class="code-block" style="margin-top:0.5rem">calc
+alloc 300 0    <span class="cm"># cấp 300B vào reg[0]</span>
+alloc 300 4    <span class="cm"># cấp 300B vào reg[4]</span>
+free 0         <span class="cm"># giải phóng reg[0]</span>
+alloc 100 1    <span class="cm"># cấp 100B vào reg[1]</span>
+write 100 1 20 <span class="cm"># ghi giá trị 100 vào reg[1]+offset 20</span>
+read 1 20 20   <span class="cm"># đọc từ reg[1]+20 vào reg[20]</span>
+write 102 2 20
+read 2 20 20
+write 103 3 20
+read 3 20 20
+calc
+free 4
+calc</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">p1s – Process 1 script (10 lệnh)</div>
+      <div class="code-block" style="margin-top:0.5rem">calc × 10   <span class="cm"># chỉ tính toán, không dùng memory</span></div>
+    </div>
+
+    <h3>4.2 Timeline thực thi</h3>
+
+    <div class="hbox amber">
+      <div class="hbox-title">Lưu ý về ưu tiên</div>
+      PID2 có priority=15 (thấp hơn). PID1, PID3, PID4 có priority=0 (cao nhất). Theo MLQ, PID2 sẽ nhận ít CPU time hơn.
+    </div>
+
+    <div class="timeline">
+      <div class="tl-row">
+        <div class="tl-slot">Slot 0</div>
+        <div class="tl-events">ld_routine khởi động. <span class="tl-pid pid1">PID1</span> (p0s, prio=0) được nạp và dispatched lên <strong>CPU 1</strong></div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-slot">Slot 1</div>
+        <div class="tl-events"><span class="tl-pid pid2">PID2</span> (p1s, prio=15) được nạp. CPU 1 tiếp tục chạy PID1</div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-slot">Slot 2</div>
+        <div class="tl-events"><span class="tl-pid pid2">PID2</span> được dispatch lên <strong>CPU 0</strong>. PID1 thực hiện <strong>alloc 300 → liballoc → print_pgtbl</strong>. PID3 (p1s, prio=0) được nạp. Thực hiện alloc thứ 2 (300B)</div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-slot">Slot 3–4</div>
+        <div class="tl-events"><span class="tl-pid pid1">PID1</span> thực hiện <strong>free 0</strong> → libfree + print_pgtbl. Sau đó <strong>alloc 100</strong> → liballoc + print_pgtbl</div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-slot">Slot 5</div>
+        <div class="tl-events"><span class="tl-pid pid4">PID4</span> (p0s, prio=0) được nạp. PID1 thực hiện write → libwrite + print_pgtbl</div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-slot">Slot 6–7</div>
+        <div class="tl-events">CPU 1 hết slot cho PID1, <strong>put to run queue</strong>. Dispatch <span class="tl-pid pid3">PID3</span>. CPU 0 dispatch <span class="tl-pid pid4">PID4</span></div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-slot">Slot 8–12</div>
+        <div class="tl-events"><span class="tl-pid pid4">PID4</span> chạy p0s: alloc 300 × 2, free, alloc 100 (PGD khác: 768e8800fa00). CPU 1 dispatch lại PID1 → read</div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-slot">Slot 13–17</div>
+        <div class="tl-events">PID1 tiếp tục write/read/write/read/write. PID4 tiếp tục. PID3 xen kẽ</div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-slot">Slot 18</div>
+        <div class="tl-events"><span class="tl-pid pid3">PID3</span> hoàn thành. CPU 0 dispatch PID4. PID1 free cuối → libfree. PID1 chuẩn bị kết thúc</div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-slot">Slot 19–20</div>
+        <div class="tl-events">PID4: write. <span class="tl-pid pid1">PID1</span> hoàn thành (Processed 1 finished). CPU 1 dispatch PID2</div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-slot">Slot 21–24</div>
+        <div class="tl-events"><span class="tl-pid pid2">PID2</span> chạy calc × 10. PID4 tiếp tục. <strong>PID2 hoàn thành (Slot 24)</strong></div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-slot">Slot 25–26</div>
+        <div class="tl-events"><span class="tl-pid pid4">PID4</span> hoàn thành. Cả 2 CPU dừng. Simulation kết thúc.</div>
+      </div>
+    </div>
+
+    <h3>4.3 Quan sát hai nhóm PGD khác nhau</h3>
+    <div class="hbox blue">
+      <div class="hbox-title">PGD=768e88007770 (PID1 &amp; PID3)</div>
+      P4g=768e80000bc0 · PUD=768e80001bd0 · PMD=768e80002be0 — Đây là địa chỉ bộ nhớ của cây page table thuộc process PID1 (p0s load lần 1) và PID3. Cùng chạy p0s nên pattern thực thi giống nhau.
+    </div>
+    <div class="hbox green">
+      <div class="hbox-title">PGD=768e8800fa00 (PID4)</div>
+      P4g=768e84000bc0 · PUD=768e84001bd0 · PMD=768e84002be0 — Cây page table của PID4 (p0s load lần 2). Địa chỉ khác hoàn toàn vì mỗi process có mm_struct riêng biệt được cấp phát độc lập bằng malloc().
+    </div>
+    <p>Điều này chứng minh <strong>isolation bộ nhớ</strong>: mỗi process có không gian địa chỉ ảo hoàn toàn độc lập dù chạy cùng code.</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ============================================================ -->
+  <!-- VA → PA -->
+  <!-- ============================================================ -->
+  <section class="section" id="va2pa">
+    <div class="section-label">Câu hỏi kỹ thuật · ~2 phút</div>
+    <h2>Cơ Chế Dịch Địa Chỉ Ảo → Vật Lý</h2>
+
+    <div class="speak-note">Câu hỏi thầy/cô thường hỏi: nhóm em triển khai cơ chế dịch địa chỉ như thế nào và nó diễn ra ra sao. Đây là cơ chế trung tâm của toàn bộ hệ thống phân trang.</div>
+
+    <h3>Chuỗi gọi hàm khi read/write một byte</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-title">libread() / libwrite() – User space</div>
+        <div class="step-desc">Tính địa chỉ ảo: <code>vaddr = proc→regs[source] + offset</code>. Gọi pg_getval() / pg_setval().</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-title">pg_getval() / pg_setval() – tách địa chỉ</div>
+        <div class="step-desc"><code>pgn = vaddr &gt;&gt; PAGING64_ADDR_PT_SHIFT</code> (dịch phải 12 bit để lấy page number). <code>off = vaddr &amp; PAGING64_ADDR_OFFST_MASK</code> (12 bit thấp = offset trong page). Gọi pg_getpage() để resolve frame.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-title">pg_getpage() – tra cứu/swap</div>
+        <div class="step-desc">Gọi pte_get_entry(caller, pgn) để lấy PTE. Nếu PRESENT=1 → lấy FPN trực tiếp. Nếu SWAPPED=1 → thực hiện swap-in (tìm victim, copy từ swap về RAM, update PTE). Nếu PTE=0 → lỗi.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-title">pte_get_entry() – duyệt cây 5 tầng</div>
+        <div class="step-desc">Tính addr = pgn &lt;&lt; 12. Gọi get_pd_from_address() lấy 5 chỉ số. Duyệt: pgd[pgd_idx] → p4d[p4d_idx] → pud[pud_idx] → pmd[pmd_idx] → pt[pt_idx]. Trả về PTE tại lá.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-title">Tính địa chỉ vật lý &amp; truy cập RAM</div>
+        <div class="step-desc"><code>phyaddr = (fpn &lt;&lt; 12) + off</code>. Gọi MEMPHY_read() / MEMPHY_write() với phyaddr để đọc/ghi byte trong mảng storage[] của mram.</div>
+      </div>
+    </div>
+
+    <h3>Sơ đồ tóm tắt</h3>
+    <div class="code-block">Virtual Address (64-bit)
+         │
+         ▼
+┌─────────────────────────────────────────────────┐
+│  pgn = vaddr >> 12        off = vaddr & 0xFFF   │
+└──────────────┬──────────────────────────────────┘
+               │
+               ▼  pte_get_entry(caller, pgn)
+┌──────────────────────────────────────────────────────────┐
+│  addr = pgn << 12                                        │
+│  get_pd_from_address(addr, &pgd, &p4d, &pud, &pmd, &pt) │
+│                                                          │
+│  pgd_tbl → p4d_tbl → pud_tbl → pmd_tbl → pt_tbl → PTE  │
+│  [pgd_idx]  [p4d_idx]  [pud_idx]  [pmd_idx]  [pt_idx]  │
+└──────────────┬───────────────────────────────────────────┘
+               │  PTE
+               ▼
+    ┌──────────────────────┐
+    │ PRESENT=1 ?          │
+    │  YES → fpn = PTE.FPN │
+    │  NO  → swap-in first │
+    └──────────┬───────────┘
+               │  fpn
+               ▼
+Physical Address = fpn * 4096 + off
+               │
+               ▼
+    MEMPHY_read/write(mram, phyaddr, &data)</div>
+
+    <h3>Điểm đặc biệt trong thiết kế nhóm em</h3>
+    <ul class="bullet">
+      <li><strong>On-demand allocation</strong>: các tầng PGD/P4D/PUD/PMD/PT chỉ được calloc() khi có page thực sự được map, tránh lãng phí 512×8 bytes × 5 tầng ngay từ đầu.</li>
+      <li><strong>FIFO replacement</strong>: fifo_pgn list được dùng để tìm victim page – đơn giản, dễ implement, đúng ngữ cảnh bài tập.</li>
+      <li><strong>Mutex bảo vệ</strong>: mmvm_lock bao toàn bộ liballoc/libfree/libread/libwrite để tránh race condition khi 2 CPU cùng truy cập mm_struct.</li>
+      <li><strong>Transparent swap</strong>: process không biết page của mình đang ở RAM hay swap – cơ chế pg_getpage() xử lý hoàn toàn trong suốt.</li>
+    </ul>
+
+    <div class="hbox blue">
+      <div class="hbox-title">Ví dụ cụ thể từ testcase</div>
+      Khi PID1 chạy <code>write 100 1 20</code>: libwrite tính vaddr = regs[1] + 20. Giả sử regs[1] = 0x0 (sbrk lúc alloc 100B), vaddr = 20. pgn = 20 >> 12 = 0, off = 20. pte_get_entry(PID1, pgn=0): pgd[0] → p4d[0] → pud[0] → pmd[0] → pt[0] = PTE với fpn=X. phyaddr = X*4096 + 20. MEMPHY_write(mram, phyaddr, 100). → Thấy <code>libwrite:502</code> in ra cùng print_pgtbl in địa chỉ PGD=768e88007770.
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- CLOSING -->
+  <section class="section">
+    <div class="section-label">Kết thúc</div>
+    <h2>Tóm Tắt</h2>
+    <div class="speak-note">Tóm lại, nhóm em đã cài đặt thành công: (1) MLQ scheduler với slot-based priority, (2) virtual memory management với first-fit allocation và FIFO swap, và (3) 5-level page table với lazy allocation và transparent address translation. Qua testcase os_0_mlq_paging, chúng ta thấy 2 CPU phối hợp chạy 4 process, mỗi process có cây page table riêng biệt được quản lý độc lập. Nhóm em xin dừng phần báo cáo và sẵn sàng trả lời câu hỏi của thầy/cô.</div>
+    <table class="tbl">
+      <tr><th>Thành phần</th><th>Kết quả</th><th>Điểm nổi bật</th></tr>
+      <tr><td>MLQ Scheduler</td><td>✅ Hoạt động đúng</td><td>Slot-based priority, mutex-safe, 2-CPU concurrent</td></tr>
+      <tr><td>Memory Management</td><td>✅ alloc/free/swap</td><td>First-fit, FIFO eviction, symbol table</td></tr>
+      <tr><td>5-Level Paging</td><td>✅ MM64 mode</td><td>Lazy tree, transparent swap, per-process isolation</td></tr>
+    </table>
+  </section>
+
+</div>
+
+<div class="footer">
+  CO2018 – Operating Systems · HCMC University of Technology VNU-HCM · Caitoa Release 2026
+</div>
+
+</body>
+</html>
